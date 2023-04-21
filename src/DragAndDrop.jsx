@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import "./style.css"
 
-const DragAndDrop = () => {
+const DragAndDrop = ({setFiles}) => {
     const inputRef=useRef(null);
     const [dragActive, setDragActive] = useState(false)
     const handleDrag=(e)=>{
@@ -19,13 +19,13 @@ const DragAndDrop = () => {
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      console.log(e.dataTransfer.files);
+      setFiles([...e.dataTransfer.files]);
     }
   };
     const handleChange=(e)=>{
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-          console.log(e.target.files);
+          setFiles(f=>[...f,...e.target.files]);
         }
     }
     const onButtonClick=()=>{
